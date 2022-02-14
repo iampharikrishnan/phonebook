@@ -4,6 +4,7 @@
  * import express and dotenv for environment variables to configure the app
  */
 const express = require("express");
+csrf = require("csurf");
 require("dotenv").config();
 
 //! Import local modules
@@ -35,6 +36,7 @@ if (app.get('env') === 'production') {
 }
 
 app.use(clientSession);
+app.use(csrf({ cookie: true }));
 
 app.use("/api", isAuthenticated,rateLimit, apiRoutes);
 app.use("/auth",rateLimit, authRoutes);
