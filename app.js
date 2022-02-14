@@ -4,7 +4,6 @@
  * import express and dotenv for environment variables to configure the app
  */
 const express = require("express");
-csrf = require("csurf");
 // import client side session package
 const session = require("express-session");
 // import server side session package
@@ -78,7 +77,6 @@ const clientSession = session(sessionOptions);
 console.log("session middleware is set");
 
 app.use(clientSession);
-app.use(csrf({ cookie: true }));
 
 app.use("/api", isAuthenticated ,rateLimit , apiRoutes);
 app.use("/auth",rateLimit, authRoutes);
