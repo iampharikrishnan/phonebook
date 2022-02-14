@@ -37,7 +37,7 @@ if (app.get('env') === 'production') {
 app.use(clientSession);
 
 app.use("/api", isAuthenticated,rateLimit, apiRoutes);
-app.use("/auth", authRoutes);
+app.use("/auth",rateLimit, authRoutes);
 
 //set to render dynamic javascript files
 //app.set("view engine", "ejs");
