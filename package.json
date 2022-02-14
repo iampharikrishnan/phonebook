@@ -4,7 +4,7 @@
   "description": "Phone book backend service using express",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node app.js",
     "test-run": "nodemon app.js"
   },
@@ -20,6 +20,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   }
 }
