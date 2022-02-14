@@ -5,6 +5,10 @@
  */
 const express = require("express");
 csrf = require("csurf");
+// import client side session package
+const session = require("express-session");
+// import server side session package
+const MongoDBSession = require("connect-mongodb-session")(session);
 require("dotenv").config();
 
 //! Import local modules
@@ -15,7 +19,6 @@ const authRoutes = require("./routes/auth.route");
 // import the middleware/utilities
 const { isAuthenticated } = require("./utils/auth");
 const mongodbConnection = require("./utils/mongodbConnection");
-const clientSession = require("./utils/sessionMiddleware"); // create sessions and cookies
 const rateLimit = require("./utils/rateLimit");
 
 //! initialize server
@@ -30,15 +33,54 @@ app.use(express.json());
 // recognize incoming request object as strings or arrays during post and put requests
 app.use(express.urlencoded({ extended: true }));
 
-if (app.get('env') === 'production') {
-    app.set('trust proxy', 1) // trust first proxy
-    clientSession.cookie.secure = true // serve secure cookies
+// secret key for session
+const SECRET_KEY = process.env.SECRET_KEY;
+// set connection string to mongoDB
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/contacts";
+
+
+const store = new MongoDBSession({
+  uri: MONGODB_URI,
+  databaseName: "phone_book",
+  collection: "sessions",
+}, function(err) {
+  if (err) {
+      console.error(err); 
+  }
+
+  console.log("Session Connected to MongoDB");
+});
+
+// Catch errors
+store.on('error', function(error) {
+  console.error(error);
+});
+
+const sessionOptions = {
+  secret: SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7, //one week
+      secure: false,
+  },
+  store: store,
 }
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sessionOptions.cookie.secure = true // serve secure cookies
+}
+
+const clientSession = session(sessionOptions);
+
+
+console.log("session middleware is set");
 
 app.use(clientSession);
 app.use(csrf({ cookie: true }));
 
-app.use("/api", isAuthenticated,rateLimit, apiRoutes);
+app.use("/api", isAuthenticated ,rateLimit , apiRoutes);
 app.use("/auth",rateLimit, authRoutes);
 
 //set to render dynamic javascript files
