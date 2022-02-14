@@ -15,7 +15,7 @@ Phone book services can only be accessed after authenticating by logging in or s
 Sign up is a put request taking user data as body for signing up
 
 ```api
-http://localhost:8080/auth/signup
+https://phonations.herokuapp.com/auth/signup
 ```
 
 User data must be send in the following format:
@@ -33,7 +33,7 @@ User data must be send in the following format:
 Login is a post request taking user id and password to login
 
 ```api
-http://localhost:8080/auth/login
+https://phonations.herokuapp.com/auth/login
 ```
 
 User credentials should in of format:
@@ -48,7 +48,7 @@ User credentials should in of format:
 Logout is a post request that takes no body
 
 ```api
-http://localhost:8080/auth/logout
+https://phonations.herokuapp.com/auth/logout
 ```
 
 ## Contacts
@@ -60,7 +60,7 @@ Contacts can be stored, updated and deleted by authorized personals. Login to ac
 Create contact is a put request taking single contact as body
 
 ```api
-http://localhost:8080/api/add_contact
+https://phonations.herokuapp.com/api/add_contact
 ```
 
 The contacts should be of following format:
@@ -76,7 +76,7 @@ The contacts should be of following format:
 Update contact is a patch request taking single contact as body
 
 ```api
-http://localhost:8080/api/update_contact/:id
+https://phonations.herokuapp.com/api/update_contact/:id
 ```
 
 Where ***:id*** is _id of contact you get form server.
@@ -94,7 +94,7 @@ The update parameter should be one of these:
 Get all contacts is a get request which returns contacts that user have saved till now.
 
 ```api
-http://localhost:8080/api/get_all_contacts/:page?size=:size
+https://phonations.herokuapp.com/api/get_all_contacts/:page?size=:size
 ```
 
 Where ***:page*** is page number and ***size*** is number of contacts in each page. ***:size*** is optional. The default ***:size*** is 10.
@@ -104,7 +104,7 @@ Where ***:page*** is page number and ***size*** is number of contacts in each pa
 Search contact is a get request to search contact with name or mail id.
 
 ```api
-http://localhost:8080/api/get_all_contacts/:page?size=:size
+https://phonations.herokuapp.com/api/get_all_contacts/:page?size=:size
 ```
 
 Where ***:page*** is page number and ***size*** is number of contacts in each page. ***:size*** is optional. The default ***:size*** is 10.
@@ -121,7 +121,7 @@ Search parameters are:
 Delete contact is a delete request taking single contact as body
 
 ```api
-http://localhost:8080/api/update_contact/:id
+https://phonations.herokuapp.com/api/update_contact/:id
 ```
 
 Where ***:id*** is _id of contact you get form server.
