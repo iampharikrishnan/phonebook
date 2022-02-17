@@ -8,6 +8,13 @@
     "start": "node app.js",
     "test-run": "nodemon app.js"
   },
+  "keywords": [
+    "phone book",
+    "express",
+    "node",
+    "backend",
+    "service"
+  ],
   "author": "Harikrishnan",
   "license": "ISC",
   "dependencies": {
@@ -21,6 +28,7 @@
   },
   "devDependencies": {
     "jest": "^27.5.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }

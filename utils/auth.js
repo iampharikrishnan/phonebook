@@ -5,6 +5,7 @@ const UserModel = require('../models/user.model')
 
 /**
  * Validate the user data and reject if the user data is empty or invalid and accept otherwise
+ *
  * @param {String} email - the email to be verified 
  * @param {String} password - the password to be verified
  * @param {String} name - the name to be verified
@@ -20,10 +21,10 @@ const cleanupAndValidate = ({email,password, username, phone, name}) => {
         if(email && !validator.isEmail(email)){
             reject(new Error('Invalid Email'))
         }
-        if(!validator.isLength(password, {min:6, max:20})){
+        if(!validator.isStrongPassword(password)){
             reject(new Error('Invalid Password'))
         }
-        if(!validator.isLength(username, {min:6, max:20})){
+        if(!validator.isLength(username, {min:4, max:20})){
             reject(new Error('Invalid Username'))
         }
         if(phone && !validator.isMobilePhone(phone)){

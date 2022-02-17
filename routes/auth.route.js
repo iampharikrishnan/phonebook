@@ -1,7 +1,5 @@
 //** import npm modules
 const router = require('express').Router()
-// import bcrypt for hashing passwords
-const bcrypt = require("bcrypt");
 
 
 //** import local modules
@@ -36,7 +34,7 @@ router.put('/signup' , async(req , res)=>{
     try {
         const userDetails = await cleanupAndValidate(req.body)
         const user = await signUp(userDetails)
-        res.status(200).json({status:200, message:"Signup Successful", data:user})
+        res.status(201).json({status:201, message:"Signup Successful", data:user})
     } catch (error) {
         return res.status(400).json({status:400, message: `Signup Failed: ${error.message}`})
     }
